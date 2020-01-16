@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "bento/ubuntu-18.04"
   config.vm.define "master", primary: true do |k3s|
     k3s.vm.hostname = "master"
     k3s.vm.network "private_network", ip: "192.168.1.100", virtualbox__intnet: true
@@ -10,8 +10,8 @@ Vagrant.configure("2") do |config|
     k3s.vm.network "forwarded_port", guest: 22, host: 2000
     k3s.vm.network "forwarded_port", guest: 6443, host: 6443, host_ip: "0.0.0.0", auto_correct: true
 
-      for p in 30000..30100 #PORTS DEFINED FOR K8S TYPE-NODE-PORT ACCESS
-    k3s.vm.network "forwarded_port", guest: p, host: p, protocol: "tcp"
+      for i in 30000..30100
+    k3s.vm.network "forwarded_port", guest: i, host: i, protocol: "tcp"
       end
     k3s.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
@@ -20,10 +20,8 @@ Vagrant.configure("2") do |config|
 
 #INSTALLING MASTER K3S, HELM, HELM STABLE CHART
   k3s.vm.provision "shell", inline: <<-SHELL
-
-
-
     curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.1.100 --flannel-iface=eth1 --write-kubeconfig-mode 644 --kube-apiserver-arg="service-node-port-range=30000-30100" --no-deploy=servicelb --no-deploy=traefik" sh -
+    sleep 5
     cp /var/lib/rancher/k3s/server/node-token /vagrant/
     sudo chmod 775 /vagrant/node-token
     sudo apt install bash-completion -y
@@ -50,7 +48,7 @@ Vagrant.configure("2") do |config|
   end
 
   worker1.vm.provision "shell", inline: <<-SHELL
-      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.1.100"  K3S_URL=https://192.168.1.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
+      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.1.101 --flannel-iface=eth1"  K3S_URL=https://192.168.1.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
       sudo k3s agent -s https://192.168.1.100:6443 -t $(cat /vagrant/node-token) ; true
         SHELL
   end
@@ -66,8 +64,8 @@ Vagrant.configure("2") do |config|
   end
 
   worker2.vm.provision "shell", inline: <<-SHELL
-    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.1.100" K3S_URL=https://192.168.1.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
-    sudo k3s agent -s https://192.168.1.100:6443 -t $(cat /vagrant/node-token) ; true
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.1.102 --flannel-iface=eth1" K3S_URL=https://192.168.1.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
+    sudo k3s agent -s https://192.168.1.100:6443 -t $(cat /vagrant/node-token) ; true &>/dev/null
       SHELL
   end
 end
