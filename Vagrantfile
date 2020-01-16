@@ -41,6 +41,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "worker1" do |worker1|
     worker1.vm.hostname = "worker1"
+    #worker1.vm.box = "bento/ubuntu-18.04"
     worker1.vm.network "private_network", ip: "192.168.1.101" , virtualbox__intnet: true
     worker1.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
@@ -49,7 +50,7 @@ Vagrant.configure("2") do |config|
 
   worker1.vm.provision "shell", inline: <<-SHELL
       curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.1.101 --flannel-iface=eth1"  K3S_URL=https://192.168.1.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
-      sudo k3s agent -s https://192.168.1.100:6443 -t $(cat /vagrant/node-token) ; true
+      #sudo k3s agent -s https://192.168.1.100:6443 -t $(cat /vagrant/node-token) ; true
         SHELL
   end
 
@@ -57,6 +58,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "worker2" do |worker2|
     worker2.vm.hostname = "worker2"
+    #worker2.vm.box = "bento/ubuntu-18.04"
     worker2.vm.network "private_network", ip: "192.168.1.102",  virtualbox__intnet: true
     worker2.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
@@ -65,7 +67,7 @@ Vagrant.configure("2") do |config|
 
   worker2.vm.provision "shell", inline: <<-SHELL
     curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.1.102 --flannel-iface=eth1" K3S_URL=https://192.168.1.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
-    sudo k3s agent -s https://192.168.1.100:6443 -t $(cat /vagrant/node-token) ; true &>/dev/null
+    #sudo k3s agent -s https://192.168.1.100:6443 -t $(cat /vagrant/node-token) ; true
       SHELL
   end
 end
