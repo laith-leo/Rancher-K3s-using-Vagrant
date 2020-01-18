@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
     echo 'source <(kubectl completion bash)' >> /home/vagrant/.bashrc
 
     if [ "$HOSTNAME" = master ]; then
-        curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash && runuser -l vagrant -c 'helm repo add stable https://kubernetes-charts.storage.googleapis.com/'
+        curl -sfL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash && runuser -l vagrant -c 'helm repo add stable https://kubernetes-charts.storage.googleapis.com/'
     fi
     sudo chmod 775  /etc/rancher/k3s/k3s.yaml
     mkdir /home/vagrant/.kube &&  touch /home/vagrant/.kube/config && chown -R vagrant:vagrant /home/vagrant/.kube && sudo cat /etc/rancher/k3s/k3s.yaml >> /home/vagrant/.kube/config
