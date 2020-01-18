@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     k3s.vm.hostname = "master"
     k3s.vm.network "private_network", ip: "192.168.1.100", virtualbox__intnet: true
     k3s.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
-    k3s.vm.network "forwarded_port", guest: 22, host: 2000
+    k3s.vm.network "forwarded_port", guest: 22, host: 2022
     k3s.vm.network "forwarded_port", guest: 6443, host: 6443, host_ip: "0.0.0.0", auto_correct: true
 
       for i in 30000..30100
@@ -43,6 +43,8 @@ Vagrant.configure("2") do |config|
     worker1.vm.hostname = "worker1"
     #worker1.vm.box = "bento/ubuntu-18.04"
     worker1.vm.network "private_network", ip: "192.168.1.101" , virtualbox__intnet: true
+    worker1.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
+    worker1.vm.network "forwarded_port", guest: 22, host: 2023
     worker1.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
         vb.name = "worker1"
@@ -60,6 +62,8 @@ Vagrant.configure("2") do |config|
     worker2.vm.hostname = "worker2"
     #worker2.vm.box = "bento/ubuntu-18.04"
     worker2.vm.network "private_network", ip: "192.168.1.102",  virtualbox__intnet: true
+    worker2.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
+    worker2.vm.network "forwarded_port", guest: 22, host: 2024
     worker2.vm.provider "virtualbox" do |vb|
         vb.memory = "1024"
         vb.name = "worker2"
