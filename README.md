@@ -1,4 +1,4 @@
-# K3s Cluster
+# HA K3s Cluster
 
 ## K3s cluster, one master and two workers, latest helm is installed, latest stable repo is installed. 
 
