@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-# Editor: Laith (Leo) Alobaidy 
+# Editor: Laith (Leo) Alobaidy
+# www.laith.info 
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-18.04"
