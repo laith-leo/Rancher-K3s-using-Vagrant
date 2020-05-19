@@ -4,7 +4,7 @@
 # www.laith.info 
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box = "bento/ubuntu-20.04"
   config.vm.define "master", primary: true do |k3s|
     k3s.vm.hostname = "master"
     k3s.vm.network "private_network", ip: "192.168.100.100"
@@ -62,7 +62,7 @@ EOF
 
   config.vm.define "worker1" do |worker1|
     worker1.vm.hostname = "worker1"
-    #worker1.vm.box = "bento/ubuntu-18.04"
+    #worker1.vm.box = "bento/ubuntu-20.04"
     worker1.vm.network "private_network", ip: "192.168.100.101"
     worker1.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     worker1.vm.network "forwarded_port", guest: 22, host: 2023
@@ -80,7 +80,7 @@ EOF
 
   config.vm.define "worker2" do |worker2|
     worker2.vm.hostname = "worker2"
-    #worker2.vm.box = "bento/ubuntu-18.04"
+    #worker2.vm.box = "bento/ubuntu-20.04"
     worker2.vm.network "private_network", ip: "192.168.100.102"
     worker2.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     worker2.vm.network "forwarded_port", guest: 22, host: 2024
