@@ -1,6 +1,6 @@
 # HA K3s Cluster
 
-## K3s cluster, one master and two workers, latest helm is installed, latest [stable](https://github.com/helm/charts/tree/master/stable) repo is installed. 
+## [K3s](https://k3s.io/) cluster, one master and two workers, latest helm is installed, latest [stable](https://github.com/helm/charts/tree/master/stable) repo is installed. 
 
 
 ### Prerequisites:
