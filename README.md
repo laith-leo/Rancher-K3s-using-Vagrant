@@ -7,7 +7,7 @@
 #### Vagrant and VirtualBox installed on the the host machine. 
 
 ### Scenario:
-1.  The cluster is based on Ubuntu 18.04.
+1.  The cluster is based on Ubuntu 20.04.
 3.  The cluster forms from 3 nodes; one master and two workers (worker1 and worker2). We can add as many as we want of nodes.
 4.  The provisioning install latest version of HELM.
 5.  The provisioning installs the latest STABLE helm repo.
