@@ -4,7 +4,7 @@
 # www.laith.info
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box = "bento/ubuntu-18.04"
   config.vm.define "master", primary: true do |k3s|
     k3s.vm.hostname = "master"
     k3s.vm.network "private_network", ip: "192.168.100.100"
@@ -62,7 +62,7 @@ EOF
 
   config.vm.define "worker1" do |worker1|
     worker1.vm.hostname = "worker1"
-    #worker1.vm.box = "bento/ubuntu-20.04"
+    #worker1.vm.box = "bento/ubuntu-18.04"
     worker1.vm.network "private_network", ip: "192.168.100.101"
     worker1.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     worker1.vm.network "forwarded_port", guest: 22, host: 2023
@@ -80,7 +80,7 @@ EOF
 
   config.vm.define "worker2" do |worker2|
     worker2.vm.hostname = "worker2"
-    #worker2.vm.box = "bento/ubuntu-20.04"
+    #worker2.vm.box = "bento/ubuntu-18.04"
     worker2.vm.network "private_network", ip: "192.168.100.102"
     worker2.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     worker2.vm.network "forwarded_port", guest: 22, host: 2024
@@ -88,6 +88,9 @@ EOF
         vb.memory = "2048"
         vb.name = "worker2"
   end
-end
 
+  worker2.vm.provision "shell", inline: <<-SHELL
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.100.102 --flannel-iface=eth1" K3S_URL=https://192.168.100.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
+      SHELL
+  end
 end
