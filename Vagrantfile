@@ -88,3 +88,6 @@ EOF
         vb.memory = "2048"
         vb.name = "worker2"
   end
+end
+
+end
