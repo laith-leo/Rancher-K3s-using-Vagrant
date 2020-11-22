@@ -39,6 +39,7 @@ Vagrant.configure("2") do |config|
     echo "Installing Metalb"
     sleep 3
     kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
+    chmod 600 /home/vagrant/.kube/config
 
 cat <<EOF > /tmp/metallb.yaml
 apiVersion: v1
