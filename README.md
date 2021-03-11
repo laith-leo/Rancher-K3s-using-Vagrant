@@ -14,6 +14,6 @@
 6.  `kubectl auto-compeltion` is configured for user vagrant.
 7.  No need to put `k3s` in-front of `kubectl` command.
 8.  Master node IP Address (host-only) is 192.168.100.100
-9.  Worker nodes IP Address (host-only) are 192.168.100.101 and 192.168.100.102.
+9.  Worker nodes IP Address (host-only) are 192.168.100.101, 192.168.100.102 and 192.168.100.103.
 10. Metallb load balancer is preinstalled.
 11. local-path is the default storage class for Kubernetes.
