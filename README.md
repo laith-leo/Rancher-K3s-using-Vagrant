@@ -3,7 +3,7 @@
 ## [K3s](https://k3s.io/) cluster, one master and two workers based on Rancher K3s and Containerd, latest helm is installed, latest [stable](https://github.com/helm/charts/tree/master/stable) repo is installed. 
 
 
-### Prerequisites:
+### Prerequisites::
 #### Vagrant and VirtualBox installed on the the host machine. 
 
 ### Scenario:
