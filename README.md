@@ -1,4 +1,4 @@
-# HA K3s Cluster
+# Rancher K3s Cluster
 
 ## [K3s](https://k3s.io/) cluster, one master and two workers based on Rancher K3s and Containerd, latest helm is installed, latest [stable](https://github.com/helm/charts/tree/master/stable) repo is installed. 
 
