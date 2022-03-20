@@ -38,6 +38,7 @@ Vagrant.configure("2") do |config|
     sudo echo "export KUBECONFIG=/home/vagrant/.kube/config" >> /home/vagrant/.profile
     echo "Installing Metalb"
     sleep 3
+    kubectl create namespace metallb-system
     kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.12.1/manifests/metallb.yaml
     chmod 600 /home/vagrant/.kube/config
 
