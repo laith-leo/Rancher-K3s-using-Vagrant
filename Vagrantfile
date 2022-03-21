@@ -54,7 +54,7 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - 192.168.100.101-192.168.100.102
+      - 192.168.100.101-192.168.100.104
 EOF
       kubectl create -f /tmp/metallb.yaml
   SHELL
@@ -69,7 +69,7 @@ EOF
     worker1.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     worker1.vm.network "forwarded_port", guest: 22, host: 2023
     worker1.vm.provider "virtualbox" do |vb|
-        vb.memory = "2048"
+        vb.memory = "1536"
         vb.name = "worker1"
   end
 
@@ -87,12 +87,48 @@ EOF
     worker2.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     worker2.vm.network "forwarded_port", guest: 22, host: 2024
     worker2.vm.provider "virtualbox" do |vb|
-        vb.memory = "2048"
+        vb.memory = "1536"
         vb.name = "worker2"
   end
 
   worker2.vm.provision "shell", inline: <<-SHELL
-    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.100.102 --flannel-iface=eth1" K3S_URL=https://192.168.100.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
+      curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.100.102 --flannel-iface=eth1"  K3S_URL=https://192.168.100.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
+        SHELL
+  end
+
+#ADDING THIRD WORKER NODE
+
+  config.vm.define "worker3" do |worker3|
+    worker3.vm.hostname = "worker3"
+    worker3.vm.box = "bento/ubuntu-20.04"
+    worker3.vm.network "private_network", ip: "192.168.100.103"
+    worker3.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
+    worker3.vm.network "forwarded_port", guest: 22, host: 2025
+    worker3.vm.provider "virtualbox" do |vb|
+        vb.memory = "1536"
+        vb.name = "worker3"
+  end
+
+  worker3.vm.provision "shell", inline: <<-SHELL
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.100.103 --flannel-iface=eth1" K3S_URL=https://192.168.100.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
       SHELL
   end
+#ADDING FOURTH WORKER NODE
+
+  config.vm.define "worker4" do |worker4|
+    worker4.vm.hostname = "worker4"
+    worker4.vm.box = "bento/ubuntu-20.04"
+    worker4.vm.network "private_network", ip: "192.168.100.104"
+    worker4.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
+    worker4.vm.network "forwarded_port", guest: 22, host: 2026
+    worker4.vm.provider "virtualbox" do |vb|
+        vb.memory = "1536"
+        vb.name = "worker4"
+  end
+
+  worker4.vm.provision "shell", inline: <<-SHELL
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--node-ip=192.168.100.104 --flannel-iface=eth1" K3S_URL=https://192.168.100.100:6443 K3S_TOKEN=$(cat /vagrant/node-token) sh -  ; true
+      SHELL
+  end
+
 end
