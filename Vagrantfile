@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
     k3s.vm.network "forwarded_port", guest: i, host: i, protocol: "tcp"
       end
     k3s.vm.provider "virtualbox" do |vb|
-        vb.memory = "1024"
+        vb.memory = "1535"
         vb.name = "master"
     end
 
