@@ -1,4 +1,8 @@
 # Rancher K3s Cluster with Vagrant
+   ![image](https://user-images.githubusercontent.com/4406186/163509499-aaa5da7d-6673-445e-a790-956de25e9502.png)
+
+![image](https://user-images.githubusercontent.com/4406186/163509533-96c2260b-d242-40c4-984b-f42ea426ffc2.png)
+
 
 ## [K3s](https://k3s.io/) cluster, one master and two workers based on Rancher K3s and Containerd, latest helm is installed, latest [stable](https://github.com/helm/charts/tree/master/stable) repo is installed. 
 
