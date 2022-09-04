@@ -6,7 +6,9 @@
 
 
 ### Prerequisites:
-#### Vagrant and VirtualBox installed on the the host machine. 
+#### 1. [Vagrant](https://www.vagrantup.com/downloads)
+#### 2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
+
 
 ### Scenario:
 1.  The cluster is based on Ubuntu 20.04.
