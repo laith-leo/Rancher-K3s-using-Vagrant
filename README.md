@@ -22,3 +22,6 @@
 9.  Worker nodes IP Address (host-only) are 192.168.100.101 and 192.168.100.102.
 10. Metallb load balancer is preinstalled.
 11. local-path is the default storage class for Kubernetes.
+
+### Installation:
+``` $ vagrant up```
